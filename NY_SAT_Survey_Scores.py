@@ -4,15 +4,15 @@
     NY-SAT-Survey-Scores
     Map SAT Scores to locations along with survey data
 
-    SAT scores by school – SAT scores for each high school in New York City.
-    School attendance – attendance information on every school in NYC.
-    Math test results – math test results for every school in NYC.
-    Class size – class size information for each school in NYC.
-    AP test results – Advanced Placement exam results for each high school. Passing AP exams can get you college credit in the US.
-    Graduation outcomes – percentage of students who graduated, and other outcome information.
-    Demographics – demographic information for each school.
-    School survey – surveys of parents, teachers, and students at each school.
-    School district maps – contains information on the layout of the school districts, so that we can map them out.
+    SAT scores by school â€“ SAT scores for each high school in New York City.
+    School attendance â€“ attendance information on every school in NYC.
+    Math test results â€“ math test results for every school in NYC.
+    Class size â€“ class size information for each school in NYC.
+    AP test results â€“ Advanced Placement exam results for each high school. Passing AP exams can get you college credit in the US.
+    Graduation outcomes â€“ percentage of students who graduated, and other outcome information.
+    Demographics â€“ demographic information for each school.
+    School survey â€“ surveys of parents, teachers, and students at each school.
+    School district maps â€“ contains information on the layout of the school districts, so that we can map them out.
 """
 
 files = ["ap_2010.csv", "class_size.csv", "demographics.csv", "graduation.csv", "hs_directory.csv", "math_test_results.csv", "sat_results.csv"]
@@ -27,7 +27,6 @@ x "math_test_results.csv"
 x "sat_results.csv"
 """
 
-------------
 
 # data path:
 #
@@ -79,7 +78,7 @@ for f in files:
     data[f.replace(".csv", "")] = d
 
 ############### 
-# Once we’ve read the data in, we can use the head method 
+# Once weâ€™ve read the data in, we can use the head method 
 # on DataFrames to print the first 5 lines of each DataFrame:
 
 #for k,v in data.items():
@@ -133,7 +132,7 @@ survey = pd.concat([survey1, survey2], axis=0)
 
 #################
 # Problem: the survey data has many columns 
-# that aren’t very useful to us
+# that arenâ€™t very useful to us
 #
 # We resolve this issue by looking at the data dictionary
 # file that we downloaded along with the survey data
@@ -157,15 +156,15 @@ data["survey"] = survey
 # of time and effort later on.
 
 # Now: If we take a look at some of the datasets, 
-# including class_size, we’ll immediately see a problem:
+# including class_size, weâ€™ll immediately see a problem:
 
 data["class_size"].head()
 
 # data["sat_results"].head()
 
 #####################
-# we’ll need to find a way to condense datasets 
-# like class_size to the point where there’s 
+# weâ€™ll need to find a way to condense datasets 
+# like class_size to the point where thereâ€™s 
 # only a single row per high school.
 #
 # By restricting each field to a single value, 
@@ -175,7 +174,7 @@ data["class_size"].head()
 # Only select values from class_size where the GRADE field is 09-12.
 # Only select values from class_size where the PROGRAM TYPE field is GEN ED.
 # Group the class_size dataset by DBN, and take the average of each column. 
-#     (Essentially, we’ll find the average class_size values for each school.)
+#     (Essentially, weâ€™ll find the average class_size values for each school.)
 # Reset the index, so DBN is added back in as a column.
 
 # print("CLASS SIZE BEFORE:\n", data["class_size"].head())
@@ -190,10 +189,10 @@ data["class_size"] = class_size
 # print("CLASS SIZE AFTER:\n", data["class_size"].head())
 
 #####################
-# Next, we’ll need to condense the demographics dataset.
+# Next, weâ€™ll need to condense the demographics dataset.
 #
 # For the demographics dataset, there are duplicate rows 
-# for each school. We’ll only pick rows where the schoolyear 
+# for each school. Weâ€™ll only pick rows where the schoolyear 
 # field is the most recent available:
     
 demographics = data["demographics"]
@@ -203,7 +202,7 @@ data["demographics"] = demographics
 #print("demographics AFTER:\n", data["demographics"].head())
 
 ########################
-# Next: We’ll need to condense the math_test_results dataset. 
+# Next: Weâ€™ll need to condense the math_test_results dataset. 
 # This dataset is segmented by Grade and by Year. We can 
 # select only a single grade from a single year:
 
@@ -230,7 +229,7 @@ data["graduation"] = data["graduation"][data["graduation"]["Demographic"] == "To
 # Computing variables can help speed up our analysis 
 # by enabling us to make comparisons more quickly, 
 # and enable us to make comparisons that we otherwise 
-# wouldn’t be able to do
+# wouldnâ€™t be able to do
 
 # The first thing we can do is compute a total SAT score 
 # from the individual columns SAT Math Avg. Score, 
@@ -277,7 +276,7 @@ data['sat_results']['sat_score'] = data['sat_results'][cols[0]] + data['sat_resu
 #>>> pd.to_numeric(s, errors='coerce')
 
 
-# Next, we’ll need to parse out the coordinate 
+# Next, weâ€™ll need to parse out the coordinate 
 # locations of each school, so we can make maps. 
 # This will enable us to plot the location of each school. 
 #
@@ -306,17 +305,17 @@ for c in ['lat', 'lon']:
 ####################
 # Combining the datasets
 #
-# Now that we’ve done all the preliminaries
+# Now that weâ€™ve done all the preliminaries
 #
 # You can read about different types of joins here.
 
 
 ######################
-# In the below code, we’ll:
+# In the below code, weâ€™ll:
 #
 #    Loop through each of the items in the data dictionary.
 #    Print the number of non-unique DBNs in the item.
-#    Decide on a join strategy – inner or outer.
+#    Decide on a join strategy â€“ inner or outer.
 #    Join the item to the DataFrame full using the column DBN.
 #
 
@@ -338,7 +337,7 @@ full.shape
     
 ####################
 # We may want to correlate the Advanced Placement 
-# exam results with SAT scores, but we’ll need to 
+# exam results with SAT scores, but weâ€™ll need to 
 # first convert those columns to numbers, then fill 
 # in any missing values
 #
@@ -352,7 +351,7 @@ full[cols] = full[cols].fillna(value=0)
 
 
 ####################
-# we’ll need to calculate a school_dist column that 
+# weâ€™ll need to calculate a school_dist column that 
 # indicates the school district of the school. This 
 # will enable us to match up school districts and plot
 # out district-level statistics using the district 
@@ -361,7 +360,7 @@ full[cols] = full[cols].fillna(value=0)
 full["school_dist"] = full["DBN"].apply(lambda x: x[:2])
 
 #################
-# Finally, we’ll need to fill in any missing values 
+# Finally, weâ€™ll need to fill in any missing values 
 # in full with the mean of the column, so we can 
 # compute correlations:
 
@@ -378,7 +377,7 @@ full = full.fillna(full.mean())
 # is to compute correlations.
 #
 # This will tell you which columns are closely
-# related to the column you’re interested in. 
+# related to the column youâ€™re interested in. 
 # We can do this via the corr method on Pandas DataFrames
 #
 # The closer to 0 the correlation, the weaker the connection. 
@@ -406,8 +405,8 @@ schools_map.create_map('schools.html')
 schools_map
 
 ########################
-# This map is helpful, but it’s hard to see w
-# where the most schools are in NYC. Instead, we’ll make a heatmap:
+# This map is helpful, but itâ€™s hard to see w
+# where the most schools are in NYC. Instead, weâ€™ll make a heatmap:
 
 
 
@@ -418,7 +417,7 @@ schools_heatmap
 
 ###################
 # We can compute SAT score by school district, 
-# then plot this out on a map. In the below code, we’ll:
+# then plot this out on a map. In the below code, weâ€™ll:
 #
 #    Group full by school district.
 #    Compute the average of each column for each school district.
@@ -431,9 +430,9 @@ district_data["school_dist"] = district_data["school_dist"].apply(lambda x: str(
 
 
 ###########################
-# We’ll now we able to plot the average SAT score 
+# Weâ€™ll now we able to plot the average SAT score 
 # in each school district. In order to do this, 
-# we’ll read in data in GeoJSON format to get the 
+# weâ€™ll read in data in GeoJSON format to get the 
 # shapes of each district, then match each district 
 # shape with the SAT score using the school_dist column, 
 # then finally create the plot:
@@ -454,15 +453,5 @@ def show_district_map(col):
     return districts
 
 show_district_map("sat_score")
-
-
-
-
-
-
-
-Computing correlations
-
-Exploring enrollment and SAT scores
 
 

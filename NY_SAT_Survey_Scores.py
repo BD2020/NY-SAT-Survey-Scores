@@ -1,6 +1,5 @@
 
 """
-
     NY-SAT-Survey-Scores
     Map SAT Scores to locations along with survey data
 
@@ -30,7 +29,7 @@ x "sat_results.csv"
 
 # data path:
 #
-# C:\ML_Data\_SAT1
+# NY-SAT-Survey-Scores/Survey_Data
 
 import sys
 import os
@@ -42,8 +41,8 @@ from folium import plugins
 ################
 # Setup the path to our data files
 
-cwd = os.getcwd()
-os.chdir('c:\\ML_Data\\_SAT1')
+new_wd = cwd + '\\Survey_Data'
+os.chdir(new_wd)
 cwd2 = os.getcwd()
 #print(cwd2)
 
@@ -59,8 +58,6 @@ files = ["ap_2010.csv",
 
 # Choose 2014-2015:  hs_directory.csv <= hs_directory_2014-2015.csv
          "hs_directory.csv",    # NOTE: choose THIS year 2014-2015
-         
-#         "hs_directory_2014-2015.csv",    # NOTE: choose THIS year 2014-2015
          "math_test_results.csv",
          "sat_results.csv"]
 
@@ -309,7 +306,6 @@ for c in ['lat', 'lon']:
 #
 # You can read about different types of joins here.
 
-
 ######################
 # In the below code, we’ll:
 #
@@ -454,4 +450,4 @@ def show_district_map(col):
 
 show_district_map("sat_score")
 
-
+####### END
